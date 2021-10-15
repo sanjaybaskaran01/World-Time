@@ -10,10 +10,13 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  Color? bgColor=Colors.orange;
   void setupWorldTime() async {
     WorldTime instance =
-        WorldTime(flag: 'India.png', location: 'India', url: 'Asia/Kolkata');
+        WorldTime(flag: 'india.png', location: 'India', url: 'Asia/Kolkata');
     await instance.getTime();
+    bgColor = instance.isDayTime! ? Colors.orange : Colors.indigo[700];
+
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       'location': instance.location,
       'time': instance.time,
@@ -30,11 +33,10 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-        backgroundColor: Colors.blue[900],
+        backgroundColor: bgColor,
         body: const Center(
-          child: SpinKitFadingCube(
+          child: SpinKitPumpingHeart(
             color: Colors.white,
             size: 50.0,
           ),

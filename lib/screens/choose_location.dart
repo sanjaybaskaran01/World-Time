@@ -9,6 +9,9 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  Color? bgColor;
+  Map data = {};
+
   List<WorldTime> locations = [
     WorldTime(url: 'Europe/London', location: 'London', flag: 'uk.png'),
     WorldTime(url: 'Europe/Athens', location: 'Athens', flag: 'greece.png'),
@@ -18,7 +21,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
     WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
     WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+    WorldTime(url: 'Asia/Kolkata', location: 'India', flag: 'india.png'),
   ];
+
   void updateTime(index) async {
     WorldTime instance = locations[index];
     await instance.getTime();
@@ -32,12 +37,14 @@ class _ChooseLocationState extends State<ChooseLocation> {
 
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context)!.settings.arguments as Map;
+    bgColor = data['isDayTime'] ? Colors.orange : Colors.indigo[700];
     return Scaffold(
         backgroundColor: Colors.grey[200],
         appBar: AppBar(
           centerTitle: true,
           title: const Text("Choose a location"),
-          backgroundColor: Colors.blue[900],
+          backgroundColor: bgColor,
           elevation: 0,
         ),
         body: ListView.builder(
@@ -50,7 +57,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
                   },
                   title: Text(locations[index].location),
                   leading: CircleAvatar(
-                    backgroundImage: AssetImage("assets/${locations[index].flag}"),
+                    backgroundImage:
+                        AssetImage("assets/${locations[index].flag}"),
                   ),
                 ),
               );

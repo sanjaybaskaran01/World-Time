@@ -6,7 +6,9 @@ import 'package:worldtime/screens/loading.dart';
 void main() {
   runApp(MaterialApp(
     title: "World Time App",
-    // initialRoute: '/home',
+    theme: ThemeData(
+    primaryColor: Colors.orange
+  ),
     routes: {
       '/': (context) => const Loading(),
       '/home': (context) => const Home(),

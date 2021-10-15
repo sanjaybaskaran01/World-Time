@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: prefer_const_constructors
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -57,9 +56,14 @@ class _HomeState extends State<Home> {
                 child: Align(
                   alignment:Alignment.bottomCenter,
                   child: TextButton.icon(
+                      style:ButtonStyle(
+                        overlayColor:MaterialStateProperty.all<Color>(bgColor!), 
+                      ),
                       onPressed: () async {
                         dynamic result =
-                            await Navigator.pushNamed(context, '/location');
+                            await Navigator.pushNamed(context, '/location',arguments:{
+                              'isDayTime': data['isDayTime']
+                            });
                         setState(() {
                           data = {
                             'time': result['time'],
@@ -73,7 +77,9 @@ class _HomeState extends State<Home> {
                       label: const Text(
                         "Edit Location",
                         style: TextStyle(color: Colors.white),
-                      )),
+                      ),
+                    
+                      ),
                 ),
               ),
 
